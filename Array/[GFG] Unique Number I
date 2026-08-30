@@ -1,0 +1,10 @@
+class Solution {
+    public int findUnique(int[] arr) {
+        // code here
+        int xor = 0;
+        for(var n:arr){
+            xor = xor ^ n;
+        }
+        return xor;
+    }
+}
