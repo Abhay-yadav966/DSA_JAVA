@@ -1,0 +1,23 @@
+class Solution {
+    void segregate0and1(int[] arr) {
+        // code here
+        int idx = 0;
+        int start = 0;
+        int end = arr.length - 1;
+        
+        while(idx <= end){
+            if(arr[idx] == 0){
+                int temp = arr[idx];
+                arr[idx] = arr[start];
+                arr[start] = temp;
+                start++;
+                idx++;
+            }else if(arr[idx] == 1){
+                int temp = arr[idx];
+                arr[idx] = arr[end];
+                arr[end] = temp;
+                end--;
+            }
+        }
+    }
+}
