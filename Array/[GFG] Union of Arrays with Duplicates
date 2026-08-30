@@ -1,0 +1,19 @@
+class Solution {
+    public static ArrayList<Integer> findUnion(int[] a, int[] b) {
+        // code here
+        HashSet<Integer> set = new HashSet<>();
+        for(var val1:a){
+            set.add(val1);
+        }
+        
+        for(var val2:b){
+            set.add(val2);
+        }
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(var val:set){
+            ans.add(val);
+        }
+        return ans;
+    }
+}
