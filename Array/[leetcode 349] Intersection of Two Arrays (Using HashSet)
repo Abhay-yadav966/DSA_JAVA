@@ -1,0 +1,26 @@
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        ArrayList<Integer> num = new ArrayList<>();
+        HashSet<Integer> set1 = new HashSet<>();
+        for(var val:nums1){
+            set1.add(val);
+        }
+
+        HashSet<Integer> set2 = new HashSet<>();
+        for(var val:nums2){
+            set2.add(val);
+        }
+
+        for(var val:set1){
+            if(set2.contains(val)){
+                num.add(val);
+            }
+        }
+
+        int[] result = new int[num.size()];
+        for(int i = 0; i < num.size(); i++){
+            result[i] = num.get(i);
+        }
+        return result;
+    }
+}
