@@ -1,0 +1,12 @@
+class Solution {
+    ArrayList<Integer> removeDuplicates(int[] arr) {
+        // code here
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(var val:arr){
+            if(ans.isEmpty() || (!ans.isEmpty() && ans.get(ans.size()-1) != val) ){
+                ans.add(val);
+            }
+        }
+        return ans;
+    }
+}
