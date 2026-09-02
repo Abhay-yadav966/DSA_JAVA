@@ -1,0 +1,28 @@
+class Solution {
+    ArrayList<Integer> findTwoElement(int arr[]) {
+        // code here
+        ArrayList<Integer> list = new ArrayList<>();
+        int missingNo = -1;
+        int duplicateNo = -1;
+        
+        for(var i = 0; i < arr.length; i++){
+            var idx = Math.abs(arr[i]) - 1;
+            if(arr[idx] < 0){
+                duplicateNo = idx + 1;
+            }else{
+                arr[idx] = arr[idx] * -1;
+            }
+        }
+        
+        for(var i = 0; i < arr.length; i++){
+            if(arr[i] > 0){
+                missingNo = i+1;
+                break;
+            }
+        }
+        
+        list.add(duplicateNo);
+        list.add(missingNo);
+        return list;
+    }
+}
