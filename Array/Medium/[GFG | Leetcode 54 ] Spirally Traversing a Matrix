@@ -1,0 +1,41 @@
+class Solution {
+    public ArrayList<Integer> spirallyTraverse(int[][] mat) {
+        // code here
+        ArrayList<Integer> ans = new ArrayList<>();
+        int rowStart = 0;
+        int rowEnd = mat.length-1;
+        int colStart = 0;
+        int colEnd = mat[0].length-1;
+        
+        while(rowStart <= rowEnd && colStart <= colEnd){
+            // left to right
+            for(var i = colStart; i <= colEnd; i++){
+                ans.add(mat[colStart][i]);
+            }
+            rowStart++;
+            
+            // top to bottom
+            for(var i = rowStart; i <= rowEnd; i++){
+                ans.add(mat[i][colEnd]);
+            }
+            colEnd--;
+            
+            if(rowStart <= rowEnd){
+                // right to left
+                for(var i = colEnd; i >= colStart; i--){
+                    ans.add(mat[rowEnd][i]);
+                }
+                rowEnd--;
+            }
+            
+            if(colStart <= colEnd){
+                // bottom to top
+                for(var i = rowEnd; i >= rowStart; i--){
+                    ans.add(mat[i][colStart]);
+                }
+                colStart++;
+            }
+        }
+        return ans;
+    }
+}
