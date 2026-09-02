@@ -1,0 +1,25 @@
+class Solution {
+    public void rotate(int[][] matrix) {
+        for(var idx = 0; idx < matrix.length; idx++){
+            var i = idx;
+            while(i < matrix.length){
+                var temp = matrix[idx][i];
+                matrix[idx][i] = matrix[i][idx];
+                matrix[i][idx] = temp;
+                i++;
+            }
+        }
+
+        for(var i = 0; i < matrix.length; i++){
+            int start = 0;
+            int end = matrix.length - 1;
+            while(start <= end){
+                var temp = matrix[i][start];
+                matrix[i][start] = matrix[i][end];
+                matrix[i][end] = temp;
+                start++;
+                end--;
+            }
+        }
+    }
+}
