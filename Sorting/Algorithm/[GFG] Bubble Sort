@@ -1,0 +1,14 @@
+class Solution {
+    public void bubbleSort(int[] arr) {
+        // code here
+        for(var idx = 0; idx < arr.length-1; idx++){
+            for(var i = 0; i < arr.length-idx; i++){
+                if(i+1 <= arr.length-1 && arr[i] > arr[i+1]){
+                    var temp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = temp;
+                }
+            }
+        }
+    }
+}
