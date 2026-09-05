@@ -1,0 +1,18 @@
+class Solution {
+    public int peakIndexInMountainArray(int[] arr) {
+        var start = 0;
+        var end = arr.length - 1;
+
+        while(start <= end){
+            var mid = (end - start)/2 + start;
+            if(mid-1 >= 0 && mid+1 <= arr.length-1 && arr[mid] > arr[mid-1] && arr[mid] > arr[mid+1]){
+                return mid;
+            }else if(mid+1 <= arr.length-1 && arr[mid] < arr[mid+1]){
+                start = mid+1;
+            }else{
+                end = mid-1;
+            }
+        }
+        return -1;
+    }
+}
