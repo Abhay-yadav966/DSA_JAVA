@@ -1,0 +1,24 @@
+class Solution {
+    int floorSqrt(int n) {
+        // code here
+        if(n == 1 || n == 2 || n == 3){
+            return 1;
+        }
+        var start = 1;
+        var end = n/2;
+        var ans = -1;
+        while(start <= end){
+            var mid = (end-start)/2 + start;
+            if(mid == n/mid){
+                ans = mid;
+                break;
+            }else if(mid > n/mid){
+                end = mid-1;
+            }else{
+                start = mid+1;
+                ans = mid;
+            }
+        }
+        return ans;
+    }
+}
