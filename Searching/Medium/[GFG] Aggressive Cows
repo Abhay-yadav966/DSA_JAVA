@@ -1,0 +1,36 @@
+class Solution {
+    public static boolean isValid(int[] arr, int k, int mid){
+        var cowCount = 1;
+        var lastPosition = 0;
+        
+        for(var i = 0; i < arr.length; i++){
+            if(arr[i]-arr[lastPosition] >= mid){
+                cowCount++;
+                lastPosition = i;
+                if(cowCount == k){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public int aggressiveCows(int[] arr, int k) {
+        // code here
+        Arrays.sort(arr);
+        var start = 0;
+        var end = arr[arr.length-1] - arr[0];
+        var ans = -1;
+        
+        while(start <= end){
+            var mid = start + (end-start)/2;
+            if(isValid(arr, k, mid)){
+                ans = mid;
+                start = mid+1;
+            }else{
+                end = mid-1;
+            }
+        }
+        return ans;
+    }
+}
