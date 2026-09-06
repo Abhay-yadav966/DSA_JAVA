@@ -1,0 +1,45 @@
+class Solution {
+    
+    public static Boolean isValid(int[] arr, int k, int mid){
+        var wall = 0;
+        var currentPainter = 1;
+        
+        for(var val:arr){
+            if(wall+val <= mid){
+                wall = wall + val;
+            }else{
+                currentPainter++;
+                if(currentPainter > k || val > mid){
+                    return false;
+                }else{
+                    wall = 0;
+                    wall = wall+val;
+                }
+            }
+        }
+        return true;
+    }
+    
+    public int minTime(int[] arr, int k) {
+        // code here
+         long total = 0;
+        for(var val:arr){
+            total = total+val;
+        }
+        
+        var start = 1;
+        long end = total;
+        var ans = -1;
+        
+        while(start <= end){
+            var mid = (int)(end-start)/2 + start;
+            if(isValid(arr, k, mid)){
+                ans = mid;
+                end = mid-1;
+            }else{
+                start = mid+1;
+            }
+        }
+        return ans;
+    }
+}
