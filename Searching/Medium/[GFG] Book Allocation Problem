@@ -1,0 +1,47 @@
+class Solution {
+    
+    public static Boolean isValid(int[] arr, int k, long mid){
+        var currentStudent = 1;
+        var pages = 0;
+        
+        for(var val:arr){
+            if(pages+val <= mid){
+                pages = pages+val;
+            }else{
+                currentStudent++;
+                if(currentStudent > k || val > mid){
+                    return false;
+                }else{
+                    pages = 0;
+                    pages = pages+val;
+                }
+            }
+        }
+        return true;
+    }
+    
+    public int findPages(int[] arr, int k) {
+        // code here
+        if(k > arr.length){
+            return -1;
+        }
+        
+        long total = 0;
+        for(var val:arr){
+            total = total + val;
+        }
+        long start = 1;
+        long end = total;
+        long ans = -1;
+        while(start <= end){
+            long mid = (end-start)/2 + start;
+            if(isValid(arr, k, mid)){
+                ans = mid;
+                end = mid-1;
+            }else{
+                start = mid+1;
+            }
+        }
+        return (int)ans;
+    }
+}
