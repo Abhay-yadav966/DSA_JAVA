@@ -1,0 +1,28 @@
+class Solution {
+    public int rowWithMax1s(int[][] arr) {
+        // code here
+        var ansRow = -1;
+        var minCol = Integer.MAX_VALUE;
+        
+        var start = 0;
+        var end = arr[0].length-1;
+        
+        for(var row=0; row<arr.length; row++){
+            start=0;
+            end=arr[0].length-1;
+            while(start<=end){
+                var mid = start+(end-start)/2;
+                if(arr[row][mid] == 1){
+                    if(mid < minCol){
+                        minCol=mid;
+                        ansRow=row;
+                    }
+                    end=mid-1;
+                }else{
+                    start=mid+1;
+                }
+            }
+        }
+        return ansRow;
+    }
+};
