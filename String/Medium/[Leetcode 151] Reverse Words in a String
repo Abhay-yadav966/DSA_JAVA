@@ -1,0 +1,33 @@
+class Solution {
+    public String reverseWords(String s) {
+        var ans = new StringBuilder();
+        var idx = s.length()-1;
+
+        while(idx >= 0){
+            while(s.charAt(idx) == ' '){
+                idx--;
+            }
+
+            if(idx < 0){
+                break;
+            }
+            var j = idx;
+
+            while(j >= 0 && s.charAt(j) != ' '){
+                j--;
+            }
+
+            ans.append(s.substring(j+1, idx+1));
+            while(j >= 0 && s.charAt(j) == ' '){
+                j--;
+            }
+
+            if(j >= 0){
+                ans.append(' ');
+            }
+
+            idx=j;
+        }
+        return ans.toString();
+    }
+}
