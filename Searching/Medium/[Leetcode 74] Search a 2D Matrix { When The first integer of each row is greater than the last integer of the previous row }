@@ -1,0 +1,28 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        var row = matrix.length;
+        var col = matrix[0].length;
+
+        var start = 0;
+        var end = (row*col)-1;
+
+        while(start<=end){
+            var mid = start + (end-start)/2;
+            var tempRow = mid/col;
+            var tempCol = mid%col;
+
+            if(tempRow > row-1){
+                return false;
+            }
+
+            if(matrix[tempRow][tempCol] == target){
+                return true;
+            }else if(matrix[tempRow][tempCol] < target){
+                start = mid+1;
+            }else if(matrix[tempRow][tempCol] > target){
+                end = mid-1;
+            }
+        }
+        return false;
+    }
+}
