@@ -1,0 +1,28 @@
+class Solution {
+    public int compress(char[] chars) {
+        var readIdx = 0;
+        var writeIdx = 0;
+
+        while(readIdx < chars.length){
+            var currentChar = chars[readIdx];
+            var count = 0;
+
+            while(readIdx < chars.length && currentChar == chars[readIdx]){
+                count++;
+                readIdx++;
+            }
+
+            chars[writeIdx] = currentChar;
+            writeIdx++;
+
+            if(count > 1){
+                var number = String.valueOf(count);
+                for(var digit:number.toCharArray()){
+                    chars[writeIdx] = digit;
+                    writeIdx++;
+                }
+            }
+        }
+        return writeIdx;
+    }
+}
