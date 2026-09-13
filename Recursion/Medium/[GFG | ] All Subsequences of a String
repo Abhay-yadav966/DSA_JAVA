@@ -1,0 +1,30 @@
+class Solution {
+    
+    private void helper(String s, List<String> ans, StringBuilder temp, int idx){
+        if(idx >= s.length()){
+            ans.add(temp.toString());
+            return;
+        }
+        
+        //include
+        temp.append(s.charAt(idx));
+        helper(s, ans, temp, idx+1);
+        temp.deleteCharAt(temp.length()-1);
+        
+        //exclude
+        helper(s, ans, temp, idx+1);
+    }
+    
+    public List<String> powerSet(String s) {
+        // Code here
+        List<String> ans = new ArrayList<>();
+        var temp = new StringBuilder();
+        var idx = 0;
+        
+        helper(s, ans, temp, idx);
+        
+        Collections.sort(ans);
+    
+        return ans;
+    }
+}
