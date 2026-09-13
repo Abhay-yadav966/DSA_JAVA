@@ -1,0 +1,30 @@
+class Solution {
+    private void helper(int[] coins, int amount, int[] ans, int sum, int idx){
+        if(idx >= coins.length || sum > amount){
+            return;
+        }
+
+        if(sum == amount){
+            ans[0]++;
+            return;
+        }
+
+        //include
+        sum = sum + coins[idx];
+        helper(coins, amount, ans, sum, idx);
+        sum = sum - coins[idx];
+
+        //exclude
+        helper(coins, amount, ans, sum, idx+1);
+    }
+
+    public int change(int amount, int[] coins) {
+        int[] ans = {0};
+        var sum = 0;
+        var idx = 0;
+
+        helper(coins, amount, ans, sum, idx);
+
+        return ans[0];
+    }
+}
