@@ -1,0 +1,13 @@
+class Solution {
+    public String removeDuplicates(String s) {
+        var ans = new StringBuilder();
+        for(var i = 0; i < s.length(); i++){
+            if(ans.length() == 0 || ans.charAt(ans.length()-1) != s.charAt(i)){
+                ans.append(s.charAt(i));
+            }else{
+                ans.deleteCharAt(ans.length()-1);
+            }
+        }
+        return ans.toString();
+    }
+}
