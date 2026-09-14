@@ -1,0 +1,40 @@
+class Solution {
+    private void solve(int[] nums, int target, int sum, int idx, boolean[] ans){
+        if(sum > target || idx >= nums.length){
+            return;
+        }
+
+        if(sum ==  target){
+            ans[0] = true;
+            return;
+        }
+
+        //include
+        sum = sum + nums[idx];
+        solve(nums, target, sum, idx+1, ans);
+        sum = sum - nums[idx];
+
+        //exclude
+        solve(nums, target, sum, idx+1, ans);
+    }
+
+    public boolean canPartition(int[] nums) {
+        var totalSum = 0;
+        for(var val:nums) {
+            totalSum = totalSum + val;
+        }
+
+        if(totalSum%2 != 0){
+            return false;
+        }
+
+        var target = totalSum/2;
+        var sum = 0;
+        var idx = 0;
+        boolean[] ans = {false};
+
+        solve(nums, target, sum, idx, ans);
+
+        return ans[0];
+    }
+}
