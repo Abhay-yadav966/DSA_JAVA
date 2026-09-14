@@ -1,0 +1,26 @@
+class Solution {
+
+    private void solve(int[][] mat, int target, int[] ans, int sum, int row) {
+        if(row >= mat.length){
+            if(Math.abs(target-sum) < ans[0]){
+                ans[0] = Math.abs(target-sum);
+            }
+            return;
+        }
+
+        for(var col = 0; col < mat[0].length; col++) {
+            sum = sum + mat[row][col];
+            solve(mat, target, ans, sum, row+1);
+            sum = sum - mat[row][col];
+        }
+    }
+
+    public int minimizeTheDifference(int[][] mat, int target) {
+        int[] ans = {Integer.MAX_VALUE};
+        var sum = 0;
+        var row = 0;
+
+        solve(mat, target, ans, sum, row);
+        return ans[0];
+    }
+}
