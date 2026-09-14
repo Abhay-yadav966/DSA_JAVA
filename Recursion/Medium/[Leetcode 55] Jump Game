@@ -1,0 +1,40 @@
+class Solution {
+    private void solve(int[] nums, boolean[] ans, int idx){
+        if(idx >= nums.length) {
+            return;
+        }
+
+        if(idx == nums.length-1) {
+            ans[0] = true;
+            return;
+        }
+
+
+        //include
+        var value = nums[idx];
+        if(value == 0){
+            return;
+        }
+
+        for(var jump = 1; jump <= value; jump++){
+            solve(nums, ans, idx+jump);
+        }
+    }
+
+    public boolean canJump(int[] nums) {
+        if(nums.length == 1) {
+            return true;
+        }
+
+        if(nums[0] == 0){
+            return false;
+        }
+
+        boolean[] ans = {false};
+        var idx = 0;
+
+        solve(nums, ans, idx);
+
+        return ans[0];
+    }
+}
