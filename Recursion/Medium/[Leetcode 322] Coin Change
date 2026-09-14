@@ -1,0 +1,42 @@
+class Solution {
+    private void helper(int[] coins, int amount, int sum, int[] ans, int idx, ArrayList<Integer> list){
+        if(sum > amount || idx >= coins.length){
+            return;
+        }
+
+        if(sum == amount){
+            if(list.size() < ans[0]){
+                ans[0] = list.size();
+            }
+            return;
+        }
+
+        //include
+        sum = sum + coins[idx];
+        list.add(coins[idx]);
+        helper(coins, amount, sum, ans, idx, list);
+        list.remove(list.size()-1);
+        sum = sum - coins[idx];
+
+        //exclude
+        helper(coins, amount, sum, ans, idx+1, list);
+    }
+
+    public int coinChange(int[] coins, int amount) {
+
+
+
+        var sum = 0;
+        int[] ans = {Integer.MAX_VALUE};
+        var idx = 0;
+        var list = new ArrayList<Integer>();
+
+        helper(coins, amount, sum, ans, idx, list);
+
+        if(ans[0] == Integer.MAX_VALUE){
+            return -1;
+        }
+
+        return ans[0];
+    }
+}
