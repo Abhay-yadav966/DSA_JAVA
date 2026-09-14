@@ -1,0 +1,29 @@
+class Solution {
+    private void solve(List<List<Integer>> triangle, int[] ans, int row, int sum, int col) {
+        if(row >= triangle.size()){
+            if(sum < ans[0]){
+                ans[0] = sum;
+            }
+            return;
+        }
+
+        var list = triangle.get(row);
+        sum = sum + list.get(col);
+        solve(triangle, ans, row+1, sum, col);
+        
+        solve(triangle, ans, row+1, sum, col+1);
+        sum = sum - list.get(col);
+
+    }
+
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int[] ans = {Integer.MAX_VALUE};
+        var row = 0;
+        var sum = 0;
+        var col = 0;
+
+        solve(triangle, ans, row, sum, col);
+
+        return ans[0];
+    }
+}
