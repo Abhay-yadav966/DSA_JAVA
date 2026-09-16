@@ -1,0 +1,63 @@
+class Solution {
+    private void solve(int[][] maze, boolean[][] checker, ArrayList<String> ans, StringBuilder temp, int row, int col) {
+        if(row == maze.length-1 && col == maze[0].length-1) {
+            ans.add(temp.toString());
+            return;
+        }
+        
+        //down
+        if(row+1 < maze.length && maze[row+1][col] == 1 && checker[row+1][col] == false) {
+            checker[row+1][col] = true;
+            temp.append('D');
+            solve(maze, checker, ans, temp, row+1, col);
+            temp.deleteCharAt(temp.length()-1);
+            checker[row+1][col] = false;
+        }
+        
+        //left
+        if(col-1 >= 0 && maze[row][col-1] == 1 && checker[row][col-1] == false) {
+            checker[row][col-1] = true;
+            temp.append('L');
+            solve(maze, checker, ans, temp, row, col-1);
+            temp.deleteCharAt(temp.length()-1);
+            checker[row][col-1] = false;
+        }
+        
+        
+        //right
+        if(col+1 < maze[0].length && maze[row][col+1] == 1 && checker[row][col+1] == false) {
+            checker[row][col+1] = true;
+            temp.append('R');
+            solve(maze, checker, ans, temp, row, col+1);
+            temp.deleteCharAt(temp.length()-1);
+            checker[row][col+1] = false;
+        }
+        
+        //up
+        if(row-1 >= 0 && maze[row-1][col] == 1 && checker[row-1][col] == false) {
+            checker[row-1][col] = true;
+            temp.append('U');
+            solve(maze, checker, ans, temp, row-1, col);
+            temp.deleteCharAt(temp.length()-1);
+            checker[row-1][col] = false;
+        }
+        
+    }
+    
+    public ArrayList<String> ratInMaze(int[][] maze) {
+        // code here
+        boolean[][] checker = new boolean[maze.length][maze[0].length];
+        var ans = new ArrayList<String>();
+        var temp = new StringBuilder();
+        var row = 0;
+        var col = 0;
+        checker[0][0] = true;
+        
+        if(maze[0][0] == 0) {
+            return ans;
+        }
+        
+        solve(maze, checker, ans, temp, row, col);
+        return ans;
+    }
+}
