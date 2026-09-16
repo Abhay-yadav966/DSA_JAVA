@@ -1,0 +1,31 @@
+import java.util.*;
+
+class Solution {
+    void helper(char[] S, List<String> ans, int idx) {
+        if (idx >= S.length) {
+            ans.add(new String(S));
+            return;
+        }
+
+        for (int i = idx; i < S.length; i++) {
+            char temp = S[i];
+            S[i] = S[idx];
+            S[idx] = temp;
+            helper(S, ans, idx+1);
+            char temp1 = S[i];
+            S[i] = S[idx];
+            S[idx] = temp1;
+        }
+    }
+
+    public ArrayList<String> permutation(String S) {
+        ArrayList<String> ans = new ArrayList<>();
+        int idx = 0;
+
+        helper(S.toCharArray(), ans, idx);
+
+        Collections.sort(ans);
+
+        return ans;
+    }
+}
