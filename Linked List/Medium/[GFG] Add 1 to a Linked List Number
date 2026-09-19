@@ -1,0 +1,47 @@
+/* Structure of linked list Node
+class Node{
+    int data;
+    Node next;
+
+    Node(int x){
+        data = x;
+        next = null;
+    }
+}
+*/
+class Solution {
+    
+    private Node reverse(Node head) {
+        Node prev = null;
+        Node curr = head;
+        Node forward = head;
+        
+        while(forward != null) {
+            forward = forward.next;
+            curr.next = prev;
+            prev = curr;
+            curr = forward;
+        }
+        return prev;
+    }
+    
+    public Node addOne(Node head) {
+        // code here.
+        head = reverse(head);
+        Node temp = head;
+        temp.data = temp.data + 1;
+        var carry = 0;
+        while(temp != null) {
+            temp.data = temp.data + carry;
+            carry = 0;
+            if(temp.data > 9 && temp.next != null) {
+                carry = temp.data/10;
+                temp.data = temp.data%10;
+            }
+            temp = temp.next;
+        }
+        
+        head = reverse(head);
+        return head;
+    }
+}
