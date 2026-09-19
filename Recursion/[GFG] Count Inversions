@@ -1,0 +1,78 @@
+class Solution {
+    
+    private void merge(int[] arr, int start, int end, int[] count) {
+        var mid = start + (end-start)/2;
+        
+        var size1 = mid-start+1;
+        var size2 = end-mid;
+        
+        int[] arr1 = new int[size1];
+        int[] arr2 = new int[size2];
+        
+        var idx = start;
+        for(var i=0; i < size1; i++) {
+            arr1[i] = arr[idx];
+            idx++;
+        }
+        
+        idx = mid+1;
+        for(var i=0; i < size2; i++) {
+            arr2[i] = arr[idx];
+            idx++;
+        }
+        
+        idx=start;
+        var i=0;
+        var j=0;
+        
+        while(i < size1 && j < size2) {
+            if(arr1[i] <= arr2[j]) {
+                arr[idx] = arr1[i];
+                i++;
+                idx++;
+            }else {
+                count[0] = count[0] + size1 - i;
+                arr[idx] = arr2[j];
+                j++;
+                idx++;
+            }
+        }
+        
+        while(i < size1) {
+            arr[idx] = arr1[i];
+            i++;
+            idx++;
+        }
+        
+        while(j < size2) {
+            arr[idx] = arr2[j];
+            j++;
+            idx++;
+        }
+    }
+    
+    private void mergeSort(int[] arr, int start, int end, int[] count) {
+        if(start >= end) {
+            return;
+        }
+        
+        var mid = start + (end-start)/2;
+        
+        //left
+        mergeSort(arr, start, mid, count);
+        
+        //right
+        mergeSort(arr, mid+1, end, count);
+        
+        merge(arr, start, end, count);
+    }
+    
+    public int inversionCount(int arr[]) {
+        // code here
+        int[] count={0};
+        var start=0;
+        var end=arr.length-1;
+        mergeSort(arr, start, end, count);
+        return count[0];
+    }
+}
