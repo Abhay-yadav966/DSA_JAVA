@@ -9,35 +9,24 @@ class Node {
 } */
 
 class Solution {
-    private Node reverse(Node head) {
-        Node prev = null;
-        Node curr = head;
-        Node forward = head;
-        
-        while(forward != null) {
-            forward = forward.next;
-            curr.next = prev;
-            prev = curr;
-            curr = forward;
-        }
-        return prev;
-    }
-    
     public int getKthFromLast(Node head, int k) {
         // code here
-        head = reverse(head);
-        for(var i=1; i < k; i++) {
-            if(head != null) {
-                head = head.next;
+        Node curr = head;
+        Node prev = head;
+        
+        for(var i=1; i <= k; i++) {
+            if(curr != null) {
+                curr = curr.next;
             }else {
                 return -1;
             }
         }
         
-        if(head == null) {
-            return -1;
+        while(curr != null) {
+            curr = curr.next;
+            prev = prev.next;
         }
         
-        return head.data;
+        return prev.data;
     }
 }
