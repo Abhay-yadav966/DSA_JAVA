@@ -1,0 +1,52 @@
+class Solution {
+    public void quickSort(int[] arr, int low, int high) {
+        // code here
+        if(low >= high) {
+            return;
+        }
+        
+        var pivotIndex = partition(arr, low, high);
+        
+        //left
+        quickSort(arr, low, pivotIndex-1);
+        
+        //high
+        quickSort(arr, pivotIndex+1, high);
+    }
+
+    private int partition(int[] arr, int low, int high) {
+        // code here
+        var pivotElement = arr[low];
+        var count=0;
+        for(var i = low+1; i <= high; i++) {
+            if(arr[i] <= pivotElement) {
+                count++;
+            }
+        }
+        
+        var pivotIndex = low+count;
+        var temp = arr[pivotIndex];
+        arr[pivotIndex] = pivotElement;
+        arr[low] = temp;
+        
+        while(low < pivotIndex && pivotIndex < high) {
+            while(arr[low] <= arr[pivotIndex]) {
+                low++;
+            }
+            
+            while(arr[high] > arr[pivotIndex]) {
+                high--;
+            }
+            
+            if(low < pivotIndex && pivotIndex < high) {
+                var temp1 = arr[low];
+                arr[low] = arr[high];
+                arr[high] = temp1;
+                low++;
+                high--;
+            }
+        }
+        
+        return pivotIndex;
+    }
+}
