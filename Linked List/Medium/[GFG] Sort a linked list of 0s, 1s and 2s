@@ -1,0 +1,74 @@
+/*
+class Node {
+    int data;
+    Node next;
+
+    Node(int d)
+    {
+        data = d;
+        next = null;
+    }
+}*/
+
+class Solution {
+    public Node segregate(Node head) {
+        // code here
+        Node zeroHead = null;
+        Node zeroTail = null;
+        Node oneHead = null;
+        Node oneTail = null;
+        Node twoHead = null;
+        Node twoTail = null;
+        
+        while(head != null) {
+            if(head.data == 0) {
+                if(zeroHead == null && zeroTail == null) {
+                    zeroHead = head;
+                    zeroTail = head;
+                }else {
+                    zeroTail.next = head;
+                    zeroTail = head;
+                }
+            }else if(head.data == 1) {
+                if(oneHead == null && oneTail == null) {
+                    oneHead = head;
+                    oneTail = head;
+                }else {
+                    oneTail.next = head;
+                    oneTail = head;
+                }
+            }else if(head.data == 2) {
+                if(twoHead == null && twoTail == null) {
+                    twoHead = head;
+                    twoTail = head;
+                }else {
+                    twoTail.next = head;
+                    twoTail = head;
+                }
+            }
+            head = head.next;
+        }
+        
+        if(zeroTail != null && oneHead != null) {
+            zeroTail.next = oneHead;
+        }else if(zeroTail != null) {
+            zeroTail.next = twoHead;
+        }
+        if(oneTail != null) {
+            oneTail.next = twoHead;
+        }
+        if(twoTail != null) {
+            twoTail.next = null;
+        }
+        
+        if(zeroHead != null){
+            return zeroHead;
+        }
+        
+        if(oneHead != null) {
+            return oneHead;
+        }
+        
+        return twoHead;
+    }
+}
