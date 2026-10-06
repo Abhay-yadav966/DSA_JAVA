@@ -1,0 +1,24 @@
+class Solution {
+    public void solve(Stack<Integer> s, int mid, int i) {
+        if(i > mid) {
+            return;
+        }
+        
+        if(i == mid) {
+            s.pop();
+            return;
+        }
+        
+        var top = s.peek();
+        s.pop();
+        solve(s, mid, ++i);
+        s.push(top);
+    }
+    
+    public void deleteMid(Stack<Integer> s) {
+        // code here
+        var mid = s.size()/2;
+        var i = 0;
+        solve(s, mid, i);
+    }
+}
