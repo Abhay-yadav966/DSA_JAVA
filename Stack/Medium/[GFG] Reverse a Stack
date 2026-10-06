@@ -1,0 +1,25 @@
+class Solution {
+    public static void insertAtBottom(Stack<Integer> st, int x) {
+        if(st.isEmpty()) {
+            st.push(x);
+            return;
+        }
+        
+        var top = st.peek();
+        st.pop();
+        insertAtBottom(st, x);
+        st.push(top);
+    }
+    
+    public static void reverseStack(Stack<Integer> st) {
+        // code here
+        if(st.isEmpty()) {
+            return;
+        }
+        
+        var top = st.peek();
+        st.pop();
+        reverseStack(st);
+        insertAtBottom(st, top);
+    }
+}
