@@ -1,0 +1,30 @@
+class Solution {
+    public String decodeString(String s) {
+        Deque<Integer> numCount = new ArrayDeque<>();
+        Deque<StringBuilder> stringCount = new ArrayDeque<>();
+
+        var number = 0;
+        StringBuilder curr = new StringBuilder();
+
+        for (var i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                number = number*10 + (s.charAt(i) - '0');
+            } else if (s.charAt(i) == '[') {
+                numCount.push(number);
+                stringCount.push(curr);
+                number = 0;
+                curr = new StringBuilder();
+            } else if (s.charAt(i) == ']') {
+                var rep = numCount.pop();
+                var str = stringCount.pop();
+                for (var idx = 0; idx < rep; idx++) {
+                    str.append(curr);
+                }
+                curr = str;
+            } else {
+                curr.append(s.charAt(i));
+            }
+        }
+        return curr.toString();
+    }
+}
