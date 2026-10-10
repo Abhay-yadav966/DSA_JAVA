@@ -1,0 +1,27 @@
+class Solution {
+    public boolean checkRedundancy(String s) {
+        // code here
+        Deque<Character> stack = new ArrayDeque<>();
+        
+        for (var i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(' || s.charAt(i) == '+' || s.charAt(i) == '-' || s.charAt(i) == '*' || s.charAt(i) == '/') {
+                stack.push(s.charAt(i));
+            } else if (s.charAt(i) == ')') {
+                var top = stack.peek();
+                if (top == '(') {
+                    return true;
+                }
+                
+                while (!stack.isEmpty()) {
+                    var ele = stack.peek();
+                    stack.pop();
+                    if (ele == '(') {
+                        break;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+}
