@@ -1,0 +1,45 @@
+class Solution {
+    static class Pair {
+        int first, second;
+        Pair(int first, int second) {
+            this.first = first;
+            this.second = second;
+        }
+        
+        int getKey() {
+            return this.first;
+        }
+        
+        int getValue() {
+            return this.second;
+        }
+    }
+    
+    public ArrayList<Integer> calculateSpan(int[] arr) {
+        // code here
+        Deque<Pair> stack = new ArrayDeque<>();
+        ArrayList<Integer> ans = new ArrayList<>();
+        for (var i = 0; i < arr.length; i++) {
+            if (stack.isEmpty()) {
+                ans.add(1);
+                stack.push(new Pair(arr[i], i+1));
+            } else {
+                while (!stack.isEmpty()) {
+                    var top = stack.peek();
+                    if (top.getKey() > arr[i]) {
+                        ans.add(i-top.getValue()+1);
+                        stack.push(new Pair(arr[i], i+1));
+                        break;
+                    } else {
+                        stack.pop();
+                    }
+                }
+                if (stack.isEmpty()) {
+                    stack.push(new Pair(arr[i], i+1));
+                    ans.add(i+1);
+                }
+            }
+        }
+        return ans;
+    }
+}
