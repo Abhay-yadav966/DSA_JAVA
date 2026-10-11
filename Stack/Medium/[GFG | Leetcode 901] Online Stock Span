@@ -1,0 +1,42 @@
+class StockSpanner {
+
+    Deque<Pair<Integer, Integer>> stack = null;
+    int idx = 1;
+
+    public StockSpanner() {
+        this.stack = new ArrayDeque<>();
+        this.idx = 1;
+    }
+    
+    public int next(int price) {
+        var ans = 0;
+        if (stack.isEmpty()) {
+            ans = idx;
+            stack.push(new Pair<>(price, idx));
+            idx++;
+            return ans;
+        } else {
+            while (!stack.isEmpty()) {
+                var top = stack.peek();
+                if (top.getKey() > price) {
+                    ans = idx - top.getValue();
+                    stack.push(new Pair<>(price, idx));
+                    idx++;
+                    return ans;
+                } else {
+                    stack.pop();
+                }
+            }
+            stack.push(new Pair<>(price, idx));
+            ans = idx;
+            idx++;
+        }
+        return ans;
+    }
+}
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
