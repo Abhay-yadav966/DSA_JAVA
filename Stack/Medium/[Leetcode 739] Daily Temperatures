@@ -1,0 +1,24 @@
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] ans = new int[temperatures.length];
+        Stack<Pair<Integer, Integer>> stack = new Stack<>();
+
+        for (var idx = 0; idx < temperatures.length; idx++) {
+            if (stack.isEmpty()) {
+                stack.push(new Pair<>(temperatures[idx], idx));
+            } else {
+                while (!stack.isEmpty()) {
+                    var top = stack.peek();
+                    if (temperatures[idx] > top.getKey()) {
+                        ans[top.getValue()] = idx - top.getValue();
+                        stack.pop();
+                    } else {
+                        break;
+                    }
+                }
+                stack.push(new Pair<>(temperatures[idx], idx));
+            }
+        }
+        return ans;
+    }
+}
