@@ -1,0 +1,42 @@
+class BrowserHistory {
+
+    Deque<String> stack1 = new ArrayDeque<>();
+    Deque<String> stack2 = new ArrayDeque<>();
+
+    public BrowserHistory(String homepage) {
+        stack1.push(homepage);
+    }
+
+    public void visit(String url) {
+        stack1.push(url);
+        stack2.clear();
+    }
+
+    public String back(int steps) {
+        while (steps > 0 && stack1.size() > 1) {
+            steps--;
+            stack2.push(stack1.peek());
+            stack1.pop();
+        }
+
+        return stack1.peek();
+    }
+
+    public String forward(int steps) {
+        while (steps > 0 && !stack2.isEmpty()) {
+            steps--;
+            var top = stack2.peek();
+            stack2.pop();
+            stack1.push(top);
+        }
+        return stack1.peek();
+    }
+}
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory obj = new BrowserHistory(homepage);
+ * obj.visit(url);
+ * String param_2 = obj.back(steps);
+ * String param_3 = obj.forward(steps);
+ */
