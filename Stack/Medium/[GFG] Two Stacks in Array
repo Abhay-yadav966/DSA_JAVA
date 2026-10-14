@@ -1,0 +1,49 @@
+class twoStacks {
+    int[] arr = new int[100];
+    int size = 100;
+    int top1, top2;
+
+    twoStacks() {
+        // Initialize the top pointers of both stacks
+        this.top1 = 0;
+        this.top2 = size-1;
+    }
+
+    void push1(int x) {
+        // Insert the given element at the top of the first stack
+        if (top1 != top2) {
+            arr[top1] = x;
+            top1++;
+        }
+    }
+
+    void push2(int x) {
+        // Insert the given element at the top of the second stack
+        if (top1 != top2) {
+            arr[top2] = x;
+            top2--;
+        }
+    }
+
+    int pop1() {
+        // Remove and return the top element of the first stack
+        // Return -1 if the stack is empty
+        if (top1 > 0) {
+            top1--;
+            var ele = arr[top1];
+            return ele;
+        }
+        return -1;
+    }
+
+    int pop2() {
+        // Remove and return the top element of the second stack
+        // Return -1 if the stack is empty
+        if (top2 < size-1) {
+            top2++;
+            var ele = arr[top2];
+            return ele;
+        }
+        return -1;
+    }
+}
