@@ -1,0 +1,35 @@
+class Solution {
+    public String removeKdigits(String num, int k) {
+        var size = k;
+        if (num.length() == k) {
+            return "0";
+        }
+
+        Deque<Character> stack = new ArrayDeque<>();
+        StringBuilder ans = new StringBuilder();
+
+        for (var i = 0; i < num.length(); i++) {
+            while (!stack.isEmpty() && stack.peek() > num.charAt(i) && k > 0) {
+                stack.pop();
+                k--;
+            }
+            stack.push(num.charAt(i));
+        }
+
+        while (k > 0) {
+            stack.pop();
+            k--;
+        }
+        
+        while (!stack.isEmpty()) {
+            ans.insert(0, stack.peek());
+            stack.pop();
+        }
+
+        while (ans.length() > 1 && ans.charAt(0) == '0') {
+            ans.deleteCharAt(0);
+        }
+
+        return ans.toString();
+    }
+}
