@@ -1,0 +1,39 @@
+class Solution {
+    public int[] asteroidCollision(int[] asteroids) {
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        for (var i = 0; i < asteroids.length; i++) {
+            var curr = asteroids[i];
+            var destroyed = false;
+
+            // collision only when top moves right (+) and curr moves left (-)
+            while (!stack.isEmpty() && stack.peek() > 0 && curr < 0) {
+                var top = stack.peek();   // re-read top on every iteration
+
+                if (Math.abs(top) == Math.abs(curr)) {
+                    stack.pop();          // both explode
+                    destroyed = true;
+                    break;
+                }
+
+                if (Math.abs(top) > Math.abs(curr)) {
+                    destroyed = true;     // curr explodes
+                    break;
+                }
+
+                stack.pop();              // top is smaller, it explodes, keep checking
+            }
+
+            if (!destroyed) {
+                stack.push(curr);
+            }
+        }
+
+        int[] ans = new int[stack.size()];
+        for (var i = ans.length - 1; i >= 0; i--) {
+            ans[i] = stack.pop();
+        }
+
+        return ans;
+    }
+}
