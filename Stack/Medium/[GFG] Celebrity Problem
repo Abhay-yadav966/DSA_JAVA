@@ -1,0 +1,51 @@
+class Solution {
+    
+    private Boolean isCelebrity(int mat[][], int celebrity) {
+        Boolean ans = true;
+        
+        //col check
+        for (var r = 0; r < mat.length; r++) {
+            if (mat[r][celebrity] == 0) {
+                ans = false;
+            }
+        }
+        
+        for (var c = 0; c < mat.length; c++) {
+            if (c != celebrity && mat[celebrity][c] == 1) {
+                ans = false;
+            }
+        }
+        
+        return ans;
+    }
+    
+    public int celebrity(int mat[][]) {
+        // code here
+        Stack<Integer> stack = new Stack<>();
+        
+        for (var row = 0; row < mat.length; row++) {
+            stack.push(row);
+        }
+        
+        while (stack.size() > 1) {
+            var person1 = stack.peek();
+            stack.pop();
+            var person2 = stack.peek();
+            stack.pop();
+            
+            if (mat[person1][person2] == 1) {
+                stack.push(person2);
+            } else {
+                stack.push(person1);
+            }
+        }
+        
+        var celebrity = stack.peek();
+        
+        if (isCelebrity(mat, celebrity)) {
+            return celebrity;
+        }
+        
+        return -1;
+    }
+}
