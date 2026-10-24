@@ -1,0 +1,79 @@
+class Solution {
+
+    private void findNextSmaller(int[] next, int[] temp) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.push(-1);
+
+        for (var i = temp.length-1; i >= 0; i--) {
+            if ( stack.peek() != -1 && temp[i] > temp[stack.peek()]) {
+                next[i] = stack.peek();
+            } else {
+                while ( stack.peek() != -1 && temp[i] <= temp[stack.peek()]) {
+                    stack.pop();
+                }
+                next[i] = stack.peek();
+            }
+            stack.push(i);
+        }
+    }
+
+    private void findPrevSmaller (int[] prev, int[] temp) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.push(-1);
+
+        for (var i = 0; i < temp.length; i++) {
+            if ( stack.peek() != -1 && temp[i] > temp[stack.peek()]) {
+                prev[i] = stack.peek();
+            } else {
+                while ( stack.peek() != -1 && temp[i] <= temp[stack.peek()]) {
+                    stack.pop();
+                }
+                prev[i] = stack.peek();
+            }
+            stack.push(i);
+        }
+    }
+
+    private int solve(int[] temp) {
+        var maxArea = 0;
+
+        int[] next = new int[temp.length];
+        findNextSmaller(next, temp);
+
+        int[] prev = new int[temp.length];
+        findPrevSmaller(prev, temp);
+
+        for (var i = 0; i < temp.length; i++) {
+
+            if (next[i] == -1) {
+                next[i] = temp.length;
+            }
+
+            var width = next[i] - prev[i] - 1;
+            var hight = temp[i];
+
+            var area = width*hight;
+            maxArea = Math.max(area, maxArea); 
+        }
+        return maxArea;
+    }
+
+    public int maximalRectangle(char[][] matrix) {
+        var ans = 0;
+        int[] temp = new int[matrix[0].length];
+
+        for (var row = 0; row < matrix.length; row++) {
+            for (var col = 0; col < matrix[0].length; col++) {
+                if (matrix[row][col] == '1') {
+                    temp[col]++;
+                } else {
+                    temp[col] = 0;
+                }
+            }
+            var result = solve(temp);
+            ans = Math.max(ans, result);
+        }
+
+        return ans;
+    }
+}
