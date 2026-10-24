@@ -1,0 +1,60 @@
+class Solution {
+
+    private void findNextSmaller(int[] next, int[] temp) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.push(-1);
+
+        for (var i = temp.length-1; i >= 0; i--) {
+            if ( stack.peek() != -1 && temp[i] > temp[stack.peek()]) {
+                next[i] = stack.peek();
+            } else {
+                while ( stack.peek() != -1 && temp[i] <= temp[stack.peek()]) {
+                    stack.pop();
+                }
+                next[i] = stack.peek();
+            }
+            stack.push(i);
+        }
+    }
+
+    private void findPrevSmaller (int[] prev, int[] temp) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.push(-1);
+
+        for (var i = 0; i < temp.length; i++) {
+            if ( stack.peek() != -1 && temp[i] > temp[stack.peek()]) {
+                prev[i] = stack.peek();
+            } else {
+                while ( stack.peek() != -1 && temp[i] <= temp[stack.peek()]) {
+                    stack.pop();
+                }
+                prev[i] = stack.peek();
+            }
+            stack.push(i);
+        }
+    }
+
+    public int largestRectangleArea(int[] heights) {
+        var maxArea = 0;
+
+        int[] next = new int[heights.length];
+        findNextSmaller(next, heights);
+
+        int[] prev = new int[heights.length];
+        findPrevSmaller(prev, heights);
+
+        for (var i = 0; i < heights.length; i++) {
+
+            if (next[i] == -1) {
+                next[i] = heights.length;
+            }
+
+            var width = next[i] - prev[i] - 1;
+            var hight = heights[i];
+
+            var area = width*hight;
+            maxArea = Math.max(area, maxArea); 
+        }
+        return maxArea;
+    }
+}
